@@ -26,12 +26,55 @@ position: absolute;
 top: 0; left: 0; width: 100%; height: 100%;
 background-image: 
     radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
-    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
     radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
 background-size: 550px 550px, 350px 350px, 250px 250px;
 background-position: 0 0, 40px 60px, 130px 270px;
 opacity: 0.6;
 z-index: 0;
+}
+
+/* --- PANTALLA DE INICIO (EL BOTONAZO DE CONTROL) --- */
+#welcome-screen {
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: radial-gradient(circle at center, #1a0033 0%, #050010 100%);
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+transition: opacity 1s ease, visibility 1s ease;
+}
+
+#start-button {
+font-size: 80px;
+background: none;
+border: none;
+cursor: pointer;
+animation: pulseHeart 1.5s infinite;
+filter: drop-shadow(0 0 15px #ff2e88);
+transition: transform 0.3s ease;
+padding: 20px;
+margin: 0;
+box-shadow: none;
+}
+#start-button:hover {
+transform: scale(1.2);
+}
+
+#welcome-text {
+font-family: 'Great Vibes', cursive;
+font-size: 40px;
+color: #ff9bd3;
+margin-top: 20px;
+text-shadow: 0 0 10px rgba(255, 155, 211, 0.5);
+}
+
+@keyframes pulseHeart {
+0% { transform: scale(1); filter: drop-shadow(0 0 15px #ff2e88); }
+50% { transform: scale(1.15); filter: drop-shadow(0 0 30px #ff2e88) drop-shadow(0 0 10px #8a2be2); }
+100% { transform: scale(1); filter: drop-shadow(0 0 15px #ff2e88); }
 }
 
 /* --- ESTRELLAS CENTELLEANTES (TWINKLING STARS) --- */
@@ -104,29 +147,33 @@ text-align: center;
 background: rgba(10, 0, 30, 0.4);
 backdrop-filter: blur(20px) saturate(180%);
 -webkit-backdrop-filter: blur(20px) saturate(180%);
-padding: 50px;
+padding: 30px 20px;
 border-radius: 30px;
 border: 1px solid rgba(255, 255, 255, 0.1);
 box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(138, 43, 226, 0.3);
-width: 90%;
-max-width: 750px;
+width: 85%;
+max-width: 650px;
+height: 85vh;
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
 z-index: 10;
-overflow: hidden;
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
 }
 
-.container::after {
-content: "";
-position: absolute;
-top: -50%; left: -50%; width: 200%; height: 200%;
-background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0,0,0,0) 70%);
-transform: rotate(30deg);
-z-index: -1;
+.container::-webkit-scrollbar {
+width: 5px;
+}
+.container::-webkit-scrollbar-thumb {
+background: rgba(255, 155, 211, 0.3);
+border-radius: 10px;
 }
 
 /* --- TÍTULO Y TEXTOS GALÁCTICOS --- */
 h1 {
 font-family: 'Great Vibes', cursive;
-font-size: 75px;
+font-size: 55px;
 background: linear-gradient(135deg, #ff9bd3 0%, #ff4da6 40%, #8a2be2 70%, #00ffff 100%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
@@ -135,35 +182,70 @@ color: transparent;
 text-shadow: 0 0 15px rgba(255, 77, 166, 0.6);
 margin-bottom: 5px;
 margin-top: 0;
+flex-shrink: 0;
 }
 
 p { 
-line-height: 1.8; 
+line-height: 1.6; 
 color: #e0e0e0;
 text-shadow: 0 0 5px rgba(255,255,255,0.3);
 font-weight: 300;
+font-size: 15px;
 }
 p.date {
 color: #ff9bd3;
 font-weight: 600;
 font-size: 1.1em;
+margin-bottom: 15px;
+flex-shrink: 0;
 }
 
 h2 {
 color: #e0e0e0;
 text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 font-weight: 600;
-margin-top: 30px;
+margin-top: 20px;
+font-size: 22px;
+}
+
+/* REPRODUCTOR DE VIDEO AJUSTADO PARA MÓVIL */
+.video-wrapper {
+width: 100%;
+max-width: 400px;
+margin: 15px auto;
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.1);
+flex-shrink: 0;
+}
+
+.video-container {
+position: relative;
+padding-bottom: 56.25%;
+height: 0;
+}
+
+.video-container iframe {
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+border: 0;
 }
 
 /* --- BOTONES CON ENERGÍA ESTELAR --- */
+.btn-group {
+margin-top: 10px;
+margin-bottom: 20px;
+flex-shrink: 0;
+}
+
 button {
-padding: 18px 35px;
+padding: 14px 28px;
 border: none;
 border-radius: 15px;
 cursor: pointer;
-margin: 15px;
-font-size: 19px;
+margin: 8px;
+font-size: 17px;
 font-family: 'Poppins', sans-serif;
 font-weight: 600;
 transition: all 0.4s ease;
@@ -172,26 +254,12 @@ overflow: hidden;
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-button::before {
-content: "";
-position: absolute;
-top: -50%; left: -50%; width: 200%; height: 200%;
-background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
-transform: scale(0);
-transition: transform 0.6s ease;
-z-index: 1;
-}
-button:hover::before {
-transform: scale(1);
-}
-
 #yes {
 background: linear-gradient(135deg, #ff2e88 0%, #8a2be2 100%);
 color: white;
 text-shadow: 0 0 5px rgba(255,255,255,0.8);
 box-shadow: 0 0 15px rgba(255, 46, 136, 0.5);
 animation: pulseStar 2s infinite;
-z-index: 2;
 }
 
 @keyframes pulseStar {
@@ -204,27 +272,12 @@ z-index: 2;
 background: linear-gradient(135deg, #444 0%, #222 100%);
 color: #bbb;
 border: 1px solid rgba(255, 255, 255, 0.1);
-z-index: 2;
-}
-#no:hover {
-background: linear-gradient(135deg, #555 0%, #333 100%);
-color: white;
-box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-#msg {
-margin-top: 20px;
-color: #ff9bd3;
-font-weight: bold;
-text-shadow: 0 0 5px #ff9bd3;
 }
 
 /* --- PANTALLA FINAL DE SÚPER NEBULA --- */
 .overlay {
 position: fixed;
-top: 0; left: 0;
-width: 100%;
-height: 100%;
+top: 0; left: 0; width: 100%; height: 100%;
 background: radial-gradient(circle at center, #ff2e88 0%, #2a004f 50%, #000000 100%);
 display: none;
 justify-content: center;
@@ -241,7 +294,7 @@ to { opacity: 1; }
 }
 
 .overlay h1 {
-font-size: 60px;
+font-size: 50px;
 color: white;
 -webkit-background-clip: initial;
 -webkit-text-fill-color: initial;
@@ -249,37 +302,19 @@ background-clip: initial;
 text-shadow: 0 0 20px #ff2e88, 0 0 30px #ff2e88;
 }
 
-.overlay p {
-max-width: 750px;
-margin: auto;
-font-size: 20px;
-line-height: 2;
-color: #f0f0f0;
-text-shadow: 0 0 5px rgba(255,255,255,0.5);
+.overlay .scroll-content {
+max-height: 80vh;
+overflow-y: auto;
+padding: 10px;
+width: 100%;
+max-width: 600px;
 }
 
-/* --- BOTÓN DE MÚSICA DISCRETO PERO ESTELAR --- */
-.music-btn {
-position: fixed;
-bottom: 25px;
-right: 25px;
-background: rgba(138, 43, 226, 0.2);
-color: #e0e0e0;
-border: 1px solid rgba(138, 43, 226, 0.4);
-padding: 12px 20px;
-border-radius: 25px;
-font-size: 15px;
-font-family: 'Poppins', sans-serif;
-z-index: 100;
-cursor: pointer;
-backdrop-filter: blur(10px);
-transition: all 0.3s ease;
-box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
-}
-.music-btn:hover {
-background: rgba(138, 43, 226, 0.4);
-box-shadow: 0 0 20px rgba(138, 43, 226, 0.6), 0 0 5px rgba(255, 255, 255, 0.5);
-color: white;
+.overlay p {
+font-size: 18px;
+line-height: 1.8;
+color: #f0f0f0;
+text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
 /* --- CORAZONES DE SUPERNOVA (EXPLOSIÓN FINAL) --- */
@@ -293,77 +328,95 @@ user-select: none;
 }
 
 @keyframes explodeHeart {
-0% { 
-    transform: translate(-50%, -50%) scale(0) rotate(0deg); 
-    opacity: 1; 
-}
-100% { 
-    transform: translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px)) scale(var(--scale)) rotate(var(--rot)); 
-    opacity: 0; 
-}
+0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+100% { transform: translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px)) scale(var(--scale)) rotate(var(--rot)); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<iframe id="bg-music" width="0" height="0"
-src="https://www.youtube.com/embed/rtOvBOTyX00?enablejsapi=1&autoplay=1&loop=1&playlist=rtOvBOTyX00"
-allow="autoplay; encrypted-media"
-style="position:absolute;left:-9999px;">
-</iframe>
-
-<button class="music-btn" id="musicTrigger">🎵 Reproducir Música Cósmica</button>
+<!-- PANTALLA DE CONTROL INICIAL -->
+<div id="welcome-screen">
+    <button id="start-button">❤️</button>
+    <div id="welcome-text">Open your cosmic surprise...</div>
+</div>
 
 <div class="container">
-<h1>Diego ❤️ Hazel</h1>
+    <h1>Diego ❤️ Hazel</h1>
+    <p class="date"><b>January 16, 2025</b></p>
 
-<p class="date"><b>January 16, 2025</b></p>
+    <!-- REPRODUCTOR INTEGRADO SEGURO PARA MÓVILES -->
+    <div class="video-wrapper">
+        <div class="video-container">
+            <div id="player"></div>
+        </div>
+    </div>
 
-<p>
-Since the day I met you, I knew you would be the person I would love, you don't have idea how much I love you.<br><br>
+    <p>
+    Since the day I met you, I knew you would be the person I would love, you don't have idea how much I love you.<br><br>
+    You became my happiness, my peace, and my favorite person in this world.<br><br>
+    No matter the distance, my feelings for you only grow stronger every day.<br><br>
+    I want to be with you, support you, and make you happy always, I will be there whenever you need me, I love you and I will keep loving you until my last breath.
+    </p>
 
-You became my happiness, my peace, and my favorite person in this world.<br><br>
+    <h2>Will you be my girlfriend? ❤️</h2>
 
-No matter the distance, my feelings for you only grow stronger every day.<br><br>
-
-I want to be with you, support you, and make you happy always, I will be there whenever you need me, I love you and I will keep loving you until my last breath.
-</p>
-
-<h2>Will you be my girlfriend? ❤️</h2>
-
-<button id="yes">YES ❤️</button>
-<button id="no">NO 😢</button>
-
-<div id="msg"></div>
+    <div class="btn-group">
+        <button id="yes">YES ❤️</button>
+        <button id="no">NO 😢</button>
+    </div>
 </div>
 
 <div class="overlay" id="overlay">
-<div>
-<h1>You said YES ❤️</h1>
-<p>
-Hazel,<br><br>
-
-You just made me the happiest man in the world.<br><br>
-
-I promise to love you with all my heart, support you in everything, and never let you feel alone.<br><br>
-
-You will never regret this.<br><br>
-
-I will love you with all my soul.<br><br>
-
-Forever yours,<br>
-Diego ❤️
-</p>
-</div>
+    <div class="scroll-content">
+        <h1>You said YES ❤️</h1>
+        <p>
+        Hazel,<br><br>
+        You just made me the happiest man in the world.<br><br>
+        I promise to love you with all my heart, support you in everything, and never let you feel alone.<br><br>
+        You will never regret this.<br><br>
+        I will love you with all my soul.<br><br>
+        Forever yours,<br>
+        Diego ❤️
+        </p>
+    </div>
 </div>
 
 <script>
 const body = document.body;
+let player;
+
+// Cargar la API de Iframe de YouTube de forma asíncrona
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: 'rtOvBOTyX00',
+        playerVars: {
+            'autoplay': 0,
+            'controls': 1,
+            'rel': 0,
+            'loop': 1,
+            'playlist': 'rtOvBOTyX00'
+        }
+    });
+}
+
+function playMusic() {
+    if (player && typeof player.playVideo === 'function') {
+        player.playVideo();
+    }
+}
 
 /* 1. ESTRELLAS CENTELLEANTES */
 function createTwinklingStars() {
-    for(let i=0; i<150; i++) {
+    for(let i=0; i<100; i++) {
         let s = document.createElement("div");
         s.className = "star";
         let size = Math.random() * 2 + 0.5;
@@ -380,7 +433,7 @@ createTwinklingStars();
 
 /* 2. ESTRELLAS FUGACES */
 function createShootingStars() {
-    const numStars = 6;
+    const numStars = 4;
     for(let i=0; i<numStars; i++) {
         let s = document.createElement("div");
         s.className = "shooting-star";
@@ -410,20 +463,23 @@ function createRose(){
     body.appendChild(r);
     setTimeout(()=>r.remove(), 12000);
 }
-setInterval(createRose, 400);
+setInterval(createRose, 500);
 
 /* LÓGICA DE INTERACCIÓN */
 let no=document.getElementById("no");
 let yes=document.getElementById("yes");
-let iframe = document.getElementById("bg-music");
-let musicBtn = document.getElementById("musicTrigger");
 let overlay = document.getElementById("overlay");
+let welcomeScreen = document.getElementById("welcome-screen");
+let startButton = document.getElementById("start-button");
 
-function playMusic() {
-    if(iframe) {
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-    }
-}
+// AL TOCAR EL CORAZÓN DE ENTRADA
+startButton.onclick = () => {
+    playMusic();
+    welcomeScreen.style.opacity = "0";
+    setTimeout(() => {
+        welcomeScreen.style.visibility = "hidden";
+    }, 1000);
+};
 
 let noTexts=[
 "Why not? 🥺",
@@ -451,13 +507,12 @@ no.onclick=()=>{
 
 yes.onclick=()=>{
     playMusic();
-    overlay.style.display="flex";
-    musicBtn.style.display = "none";
+    overlay.style.display = "flex";
     createSupernovaExplosion();
 };
 
 function createSupernovaExplosion() {
-    const numHearts = 150;
+    const numHearts = 100;
     for(let j=0; j<numHearts; j++) {
         let h = document.createElement("div");
         h.className = "supernova-heart";
@@ -465,24 +520,19 @@ function createSupernovaExplosion() {
         h.style.left = "50%";
         h.style.top = "50%";
         let angle = Math.random() * Math.PI * 2;
-        let distance = Math.random() * 800 + 200;
+        let distance = Math.random() * 600 + 150;
         let tx = Math.cos(angle) * distance;
         let ty = Math.sin(angle) * distance;
         h.style.setProperty('--tx', tx);
         h.style.setProperty('--ty', ty);
-        h.style.setProperty('--scale', Math.random() * 2 + 1);
+        h.style.setProperty('--scale', Math.random() * 1.8 + 0.8);
         h.style.setProperty('--rot', (Math.random() * 720 - 360) + "deg");
-        h.style.setProperty('--duration', (Math.random() * 2 + 2) + "s");
-        h.style.fontSize = (Math.random() * 15 + 15) + "px";
+        h.style.setProperty('--duration', (Math.random() * 1.5 + 1.5) + "s");
+        h.style.fontSize = (Math.random() * 12 + 12) + "px";
         body.appendChild(h);
-        setTimeout(()=>h.remove(), 4000);
+        setTimeout(()=>h.remove(), 3000);
     }
 }
-
-musicBtn.onclick=()=>{
-    playMusic();
-    musicBtn.style.display = "none";
-};
 </script>
 
 </body>
