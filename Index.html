@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Diego ❤️ Hazel - Cosmic Love</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* --- ESTILOS BASE Y FONDO DE GALAXIA PROFUNDA --- */
+body {
+margin: 0;
+overflow: hidden;
+font-family: 'Poppins', sans-serif;
+background: radial-gradient(circle at center, #2a004f 0%, #100028 40%, #050010 80%, #000000 100%);
+height: 100vh;
+color: #e0e0e0;
+perspective: 1000px;
+}
+
+/* Capa de estrellas fijas traseras */
+body::before {
+content: "";
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background-image: 
+    radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+    radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+background-size: 550px 550px, 350px 350px, 250px 250px;
+background-position: 0 0, 40px 60px, 130px 270px;
+opacity: 0.6;
+z-index: 0;
+}
+
+/* --- ESTRELLAS CENTELLEANTES (TWINKLING STARS) --- */
+.star {
+position: absolute;
+background: white;
+border-radius: 50%;
+opacity: 0;
+box-shadow: 0 0 5px white, 0 0 10px white;
+animation: twinkle var(--duration) infinite linear;
+z-index: 1;
+}
+
+@keyframes twinkle {
+0% { opacity: 0; transform: scale(0.5) translateY(100vh); }
+10% { opacity: 1; transform: scale(1) translateY(90vh); }
+90% { opacity: 1; transform: scale(1) translateY(10vh); }
+100% { opacity: 0; transform: scale(0.5) translateY(-10vh); }
+}
+
+/* --- ESTRELLAS FUGACES (SHOOTING STARS) --- */
+.shooting-star {
+position: absolute;
+top: var(--top);
+left: var(--left);
+width: 2px;
+height: var(--size);
+background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+opacity: 0;
+transform: rotate(var(--angle));
+box-shadow: 0 0 10px white;
+animation: shoot var(--duration) infinite linear;
+animation-delay: var(--delay);
+z-index: 1;
+}
+
+@keyframes shoot {
+0% { transform: translate(0, 0) rotate(var(--angle)); opacity: 0; }
+1% { opacity: 1; }
+10% { transform: translate(calc(var(--speed) * 1px), calc(var(--speed) * var(--angle-tan) * 1px)) rotate(var(--angle)); opacity: 0; }
+100% { opacity: 0; }
+}
+
+/* --- ROSAS GALÁCTICAS QUE CAEN --- */
+.rose {
+position: absolute;
+font-size: 24px;
+color: rgba(255, 100, 150, 0.8);
+text-shadow: 0 0 10px #ff0055, 0 0 20px #ff0055;
+animation: fall var(--duration) linear infinite;
+opacity: 0.7;
+z-index: 2;
+user-select: none;
+}
+
+@keyframes fall {
+0% { transform: translateY(-15vh) rotate(0deg) scale(0.8); opacity: 0; }
+10% { opacity: 0.8; scale: 1; }
+90% { opacity: 0.8; scale: 1; }
+100% { transform: translateY(115vh) rotate(360deg) scale(0.8); opacity: 0; }
+}
+
+/* --- CONTENEDOR CENTRAL DE CRISTAL CÓSMICO --- */
+.container {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+text-align: center;
+background: rgba(10, 0, 30, 0.4);
+backdrop-filter: blur(20px) saturate(180%);
+-webkit-backdrop-filter: blur(20px) saturate(180%);
+padding: 50px;
+border-radius: 30px;
+border: 1px solid rgba(255, 255, 255, 0.1);
+box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 15px rgba(138, 43, 226, 0.3);
+width: 90%;
+max-width: 750px;
+z-index: 10;
+overflow: hidden;
+}
+
+.container::after {
+content: "";
+position: absolute;
+top: -50%; left: -50%; width: 200%; height: 200%;
+background: radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, rgba(0,0,0,0) 70%);
+transform: rotate(30deg);
+z-index: -1;
+}
+
+/* --- TÍTULO Y TEXTOS GALÁCTICOS --- */
+h1 {
+font-family: 'Great Vibes', cursive;
+font-size: 75px;
+background: linear-gradient(135deg, #ff9bd3 0%, #ff4da6 40%, #8a2be2 70%, #00ffff 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+color: transparent;
+text-shadow: 0 0 15px rgba(255, 77, 166, 0.6);
+margin-bottom: 5px;
+margin-top: 0;
+}
+
+p { 
+line-height: 1.8; 
+color: #e0e0e0;
+text-shadow: 0 0 5px rgba(255,255,255,0.3);
+font-weight: 300;
+}
+p.date {
+color: #ff9bd3;
+font-weight: 600;
+font-size: 1.1em;
+}
+
+h2 {
+color: #e0e0e0;
+text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+font-weight: 600;
+margin-top: 30px;
+}
+
+/* --- BOTONES CON ENERGÍA ESTELAR --- */
+button {
+padding: 18px 35px;
+border: none;
+border-radius: 15px;
+cursor: pointer;
+margin: 15px;
+font-size: 19px;
+font-family: 'Poppins', sans-serif;
+font-weight: 600;
+transition: all 0.4s ease;
+position: relative;
+overflow: hidden;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+button::before {
+content: "";
+position: absolute;
+top: -50%; left: -50%; width: 200%; height: 200%;
+background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
+transform: scale(0);
+transition: transform 0.6s ease;
+z-index: 1;
+}
+button:hover::before {
+transform: scale(1);
+}
+
+#yes {
+background: linear-gradient(135deg, #ff2e88 0%, #8a2be2 100%);
+color: white;
+text-shadow: 0 0 5px rgba(255,255,255,0.8);
+box-shadow: 0 0 15px rgba(255, 46, 136, 0.5);
+animation: pulseStar 2s infinite;
+z-index: 2;
+}
+
+@keyframes pulseStar {
+0% { box-shadow: 0 0 15px rgba(255, 46, 136, 0.5); }
+50% { box-shadow: 0 0 30px rgba(138, 43, 226, 0.8), 0 0 10px rgba(255, 46, 136, 0.8); }
+100% { box-shadow: 0 0 15px rgba(255, 46, 136, 0.5); }
+}
+
+#no {
+background: linear-gradient(135deg, #444 0%, #222 100%);
+color: #bbb;
+border: 1px solid rgba(255, 255, 255, 0.1);
+z-index: 2;
+}
+#no:hover {
+background: linear-gradient(135deg, #555 0%, #333 100%);
+color: white;
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+#msg {
+margin-top: 20px;
+color: #ff9bd3;
+font-weight: bold;
+text-shadow: 0 0 5px #ff9bd3;
+}
+
+/* --- PANTALLA FINAL DE SÚPER NEBULA --- */
+.overlay {
+position: fixed;
+top: 0; left: 0;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at center, #ff2e88 0%, #2a004f 50%, #000000 100%);
+display: none;
+justify-content: center;
+align-items: center;
+text-align: center;
+z-index: 999;
+padding: 20px;
+animation: fadeInOverlay 1s ease forwards;
+}
+
+@keyframes fadeInOverlay {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+
+.overlay h1 {
+font-size: 60px;
+color: white;
+-webkit-background-clip: initial;
+-webkit-text-fill-color: initial;
+background-clip: initial;
+text-shadow: 0 0 20px #ff2e88, 0 0 30px #ff2e88;
+}
+
+.overlay p {
+max-width: 750px;
+margin: auto;
+font-size: 20px;
+line-height: 2;
+color: #f0f0f0;
+text-shadow: 0 0 5px rgba(255,255,255,0.5);
+}
+
+/* --- BOTÓN DE MÚSICA DISCRETO PERO ESTELAR --- */
+.music-btn {
+position: fixed;
+bottom: 25px;
+right: 25px;
+background: rgba(138, 43, 226, 0.2);
+color: #e0e0e0;
+border: 1px solid rgba(138, 43, 226, 0.4);
+padding: 12px 20px;
+border-radius: 25px;
+font-size: 15px;
+font-family: 'Poppins', sans-serif;
+z-index: 100;
+cursor: pointer;
+backdrop-filter: blur(10px);
+transition: all 0.3s ease;
+box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+}
+.music-btn:hover {
+background: rgba(138, 43, 226, 0.4);
+box-shadow: 0 0 20px rgba(138, 43, 226, 0.6), 0 0 5px rgba(255, 255, 255, 0.5);
+color: white;
+}
+
+/* --- CORAZONES DE SUPERNOVA (EXPLOSIÓN FINAL) --- */
+.supernova-heart {
+position: fixed;
+color: rgba(255, 46, 136, 0.9);
+text-shadow: 0 0 10px #ff2e88, 0 0 20px #ff2e88;
+animation: explodeHeart var(--duration) ease-out forwards;
+z-index: 1000;
+user-select: none;
+}
+
+@keyframes explodeHeart {
+0% { 
+    transform: translate(-50%, -50%) scale(0) rotate(0deg); 
+    opacity: 1; 
+}
+100% { 
+    transform: translate(calc(var(--tx) * 1px), calc(var(--ty) * 1px)) scale(var(--scale)) rotate(var(--rot)); 
+    opacity: 0; 
+}
+}
+</style>
+</head>
+
+<body>
+
+<iframe id="bg-music" width="0" height="0"
+src="https://www.youtube.com/embed/rtOvBOTyX00?enablejsapi=1&autoplay=1&loop=1&playlist=rtOvBOTyX00"
+allow="autoplay; encrypted-media"
+style="position:absolute;left:-9999px;">
+</iframe>
+
+<button class="music-btn" id="musicTrigger">🎵 Reproducir Música Cósmica</button>
+
+<div class="container">
+<h1>Diego ❤️ Hazel</h1>
+
+<p class="date"><b>January 16, 2025</b></p>
+
+<p>
+Since the day I met you, I knew you would be the person I would love, you don't have idea how much I love you.<br><br>
+
+You became my happiness, my peace, and my favorite person in this world.<br><br>
+
+No matter the distance, my feelings for you only grow stronger every day.<br><br>
+
+I want to be with you, support you, and make you happy always, I will be there whenever you need me, I love you and I will keep loving you until my last breath.
+</p>
+
+<h2>Will you be my girlfriend? ❤️</h2>
+
+<button id="yes">YES ❤️</button>
+<button id="no">NO 😢</button>
+
+<div id="msg"></div>
+</div>
+
+<div class="overlay" id="overlay">
+<div>
+<h1>You said YES ❤️</h1>
+<p>
+Hazel,<br><br>
+
+You just made me the happiest man in the world.<br><br>
+
+I promise to love you with all my heart, support you in everything, and never let you feel alone.<br><br>
+
+You will never regret this.<br><br>
+
+I will love you with all my soul.<br><br>
+
+Forever yours,<br>
+Diego ❤️
+</p>
+</div>
+</div>
+
+<script>
+const body = document.body;
+
+/* 1. ESTRELLAS CENTELLEANTES */
+function createTwinklingStars() {
+    for(let i=0; i<150; i++) {
+        let s = document.createElement("div");
+        s.className = "star";
+        let size = Math.random() * 2 + 0.5;
+        s.style.width = size + "px";
+        s.style.height = size + "px";
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = Math.random() * 100 + "vh";
+        s.style.setProperty('--duration', (Math.random() * 3 + 2) + "s");
+        s.style.animationDelay = Math.random() * 5 + "s";
+        body.appendChild(s);
+    }
+}
+createTwinklingStars();
+
+/* 2. ESTRELLAS FUGACES */
+function createShootingStars() {
+    const numStars = 6;
+    for(let i=0; i<numStars; i++) {
+        let s = document.createElement("div");
+        s.className = "shooting-star";
+        let angle = Math.random() * 40 + 10;
+        let speed = Math.random() * 300 + 200;
+        s.style.setProperty('--top', (Math.random() * 40) + "vh");
+        s.style.setProperty('--left', (Math.random() * 80) + "vw");
+        s.style.setProperty('--size', (Math.random() * 80 + 50) + "px");
+        s.style.setProperty('--angle', angle + "deg");
+        s.style.setProperty('--angle-tan', Math.tan(angle * Math.PI / 180));
+        s.style.setProperty('--speed', speed);
+        s.style.setProperty('--duration', (Math.random() * 1 + 0.5) + "s");
+        s.style.setProperty('--delay', (Math.random() * 10) + "s");
+        body.appendChild(s);
+    }
+}
+createShootingStars();
+
+/* 3. ROSAS GALÁCTICAS */
+function createRose(){
+    let r=document.createElement("div");
+    r.className="rose";
+    r.innerHTML="🌹";
+    r.style.left=Math.random()*100+"vw";
+    r.style.setProperty('--duration', (Math.random()*5+7)+"s");
+    r.style.fontSize = (Math.random() * 10 + 20) + "px";
+    body.appendChild(r);
+    setTimeout(()=>r.remove(), 12000);
+}
+setInterval(createRose, 400);
+
+/* LÓGICA DE INTERACCIÓN */
+let no=document.getElementById("no");
+let yes=document.getElementById("yes");
+let iframe = document.getElementById("bg-music");
+let musicBtn = document.getElementById("musicTrigger");
+let overlay = document.getElementById("overlay");
+
+function playMusic() {
+    if(iframe) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
+}
+
+let noTexts=[
+"Why not? 🥺",
+"Could you say yes? ❤️",
+"Please think again 💕",
+"Pretty please? 🌹",
+"Are you sure? 😢",
+"Give me a chance ❤️",
+"Last chance... 💖",
+"Say YES! ❤️✨"
+];
+
+let i=0;
+
+no.onclick=()=>{
+    playMusic();
+    no.innerHTML=noTexts[i];
+    i++;
+    if(i>=noTexts.length){
+        no.style.display="none";
+    }
+    let currentScale = parseFloat(yes.style.transform.replace('scale(', '').replace(')', '')) || 1;
+    yes.style.transform=`scale(${currentScale + 0.15})`;
+};
+
+yes.onclick=()=>{
+    playMusic();
+    overlay.style.display="flex";
+    musicBtn.style.display = "none";
+    createSupernovaExplosion();
+};
+
+function createSupernovaExplosion() {
+    const numHearts = 150;
+    for(let j=0; j<numHearts; j++) {
+        let h = document.createElement("div");
+        h.className = "supernova-heart";
+        h.innerHTML = "❤️";
+        h.style.left = "50%";
+        h.style.top = "50%";
+        let angle = Math.random() * Math.PI * 2;
+        let distance = Math.random() * 800 + 200;
+        let tx = Math.cos(angle) * distance;
+        let ty = Math.sin(angle) * distance;
+        h.style.setProperty('--tx', tx);
+        h.style.setProperty('--ty', ty);
+        h.style.setProperty('--scale', Math.random() * 2 + 1);
+        h.style.setProperty('--rot', (Math.random() * 720 - 360) + "deg");
+        h.style.setProperty('--duration', (Math.random() * 2 + 2) + "s");
+        h.style.fontSize = (Math.random() * 15 + 15) + "px";
+        body.appendChild(h);
+        setTimeout(()=>h.remove(), 4000);
+    }
+}
+
+musicBtn.onclick=()=>{
+    playMusic();
+    musicBtn.style.display = "none";
+};
+</script>
+
+</body>
+</html>
